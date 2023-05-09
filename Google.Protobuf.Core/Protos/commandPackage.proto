@@ -68,9 +68,7 @@ message CommandLoginReply {
 }
 
 message CommandOrder {
-  uint32 targetId = 1;
-
-  string content = 2;
+  string content = 1;
 }
 
 message CommandOrderReply {
