@@ -7,4 +7,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="SuperSocket.Client" Version="2.0.0-beta.16.411" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Google.Protobuf.Core\Google.Protobuf.Core.csproj" />
+    </ItemGroup>
+
 </Project>

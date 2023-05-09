@@ -13,7 +13,7 @@ public sealed class CommandPipelineFilter : FixedHeaderPipelineFilter<CommandPac
     {
         var reader = new SequenceReader<byte>(buffer);
 
-        reader.TryReadLittleEndian(out short bodyLength);
+        reader.TryReadBigEndian(out short bodyLength);
 
         return bodyLength;
     }

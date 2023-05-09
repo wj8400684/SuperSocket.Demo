@@ -21,19 +21,28 @@ enum CommandType {
   AddOrder = 7;
 
   AddOrderReply = 8;
+
+  Hello = 9;
+}
+
+enum ErrorCode{
+  Unknown = 0;
+  Package = 1;
 }
 
 message CommandPackage
 {
   CommandType key = 1;
 
-  bool successFul = 2;
+  uint32 requestId = 2;
 
-  uint32 requestId = 3;
+  bool successFul = 3;
 
-  string errorMessage = 4;
+  ErrorCode errorCode = 4;
 
-  bytes content = 5;
+  string errorMessage = 5;
+
+  bytes content = 6;
 }
 
 message CommandRegister {
@@ -73,4 +82,8 @@ message CommandHeartBeat {
 
 message CommandHeartBeatReply {
   int64 serverTimesteamp = 1;
+}
+
+message CommandHello{
+  string msg = 1;
 }

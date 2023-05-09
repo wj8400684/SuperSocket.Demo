@@ -3,7 +3,8 @@ using Core;
 
 namespace Server.Command;
 
-public sealed class LoginCommand : ReplyAsyncCommand<CommandRegister, CommandRegisterReply>
+[ReplyCommand(CommandType.Login, CommandType.LoginReply)]
+public sealed class LoginCommand : ReplyAsyncCommand<CommandLogin, CommandLoginReply>
 {
     /// <summary>
     /// 执行命令
@@ -14,13 +15,18 @@ public sealed class LoginCommand : ReplyAsyncCommand<CommandRegister, CommandReg
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    protected override ValueTask<CommandRegisterReply?> OnHandlerAsync(
+    protected override ValueTask<CommandLoginReply?> OnHandlerAsync(
         CommandSession session,
         CommandPackage package,
-        CommandRegister request,
+        CommandLogin request,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        PackageHostServer.PackageCount++;
+        
+        return new ValueTask<CommandLoginReply?>(new CommandLoginReply
+        {
+            Token = Guid.NewGuid().ToString("X")
+        });
     }
 
     /// <summary>
@@ -37,7 +43,7 @@ public sealed class LoginCommand : ReplyAsyncCommand<CommandRegister, CommandReg
     {
         return base.SchedulerAsync(session, package, cancellationToken);
     }
-    
+
     /// <summary>
     /// 当执行命令异常时候触发
     /// </summary>
@@ -49,7 +55,7 @@ public sealed class LoginCommand : ReplyAsyncCommand<CommandRegister, CommandReg
     protected override ValueTask OnHandlerErrorAsync(
         CommandSession session,
         CommandPackage package,
-        CommandRegister request,
+        CommandLogin request,
         Exception e,
         CancellationToken cancellationToken)
     {

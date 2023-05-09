@@ -7,21 +7,27 @@ public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
 {
     internal const int HeaderSize = sizeof(short);
 
-    public CommandPackage CreateInfo(ByteString value)
+    public CommandPackage CreateInfo<TPackage>(CommandType key, TPackage package)
+        where TPackage : IMessage
     {
-        return new CommandPackage
-        {
-            RequestId = RequestId,
-            Content = value,
-        };
+        return CreateInfo(key, package.ToByteString());
     }
-    
-    public CommandPackage CreateError(int code, string message)
+
+    public CommandPackage CreateInfo(CommandType key, ByteString value)
     {
-        return new CommandPackage
-        {
-            RequestId = RequestId,
-            ErrorMessage = message
-        };
+        Key = key;
+        ErrorCode = default;
+        ErrorMessage = string.Empty;
+        Content = value;
+        return this;
+    }
+
+    public CommandPackage CreateError(CommandType key, ErrorCode code, string message)
+    {
+        Key = key;
+        ErrorCode = code;
+        ErrorMessage = message;
+        Content = ByteString.Empty;
+        return this;
     }
 }
