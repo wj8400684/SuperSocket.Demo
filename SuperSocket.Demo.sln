@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.Server", "Google.Protobuf.Server\Google.Protobuf.Server.csproj", "{F06FA40E-4E00-4C61-B33C-C0F39663CB13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.Core", "Google.Protobuf.Core\Google.Protobuf.Core.csproj", "{1DA204CE-2D73-4D92-85F0-DE13B9D91433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.Client", "Google.Protobuf.Client\Google.Protobuf.Client.csproj", "{F5600DDF-9A98-4ECF-AF89-8FB6CCBE8BC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F06FA40E-4E00-4C61-B33C-C0F39663CB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F06FA40E-4E00-4C61-B33C-C0F39663CB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F06FA40E-4E00-4C61-B33C-C0F39663CB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F06FA40E-4E00-4C61-B33C-C0F39663CB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA204CE-2D73-4D92-85F0-DE13B9D91433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA204CE-2D73-4D92-85F0-DE13B9D91433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA204CE-2D73-4D92-85F0-DE13B9D91433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA204CE-2D73-4D92-85F0-DE13B9D91433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5600DDF-9A98-4ECF-AF89-8FB6CCBE8BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5600DDF-9A98-4ECF-AF89-8FB6CCBE8BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5600DDF-9A98-4ECF-AF89-8FB6CCBE8BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5600DDF-9A98-4ECF-AF89-8FB6CCBE8BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

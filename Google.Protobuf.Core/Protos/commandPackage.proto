@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package Core;
+
+enum CommandType {
+
+  None = 0;
+
+  HeartBeat = 1;
+
+  HeartBeatReply = 2;
+
+  Register = 3;
+
+  RegisterReply = 4;
+
+  Login = 5;
+
+  LoginReply = 6;
+
+  AddOrder = 7;
+
+  AddOrderReply = 8;
+}
+
+message CommandPackage
+{
+  CommandType key = 1;
+
+  bool successFul = 2;
+
+  uint32 requestId = 3;
+
+  string errorMessage = 4;
+
+  bytes content = 5;
+}
+
+message CommandRegister {
+  string username = 1;
+
+  string password = 2;
+}
+
+message CommandRegisterReply {
+  uint32 id = 1;
+}
+
+message CommandLogin {
+  string username = 1;
+
+  string password = 2;
+
+  string email = 3;
+}
+
+message CommandLoginReply {
+  string token = 1;
+}
+
+message CommandOrder {
+  uint32 targetId = 1;
+
+  string content = 2;
+}
+
+message CommandOrderReply {
+}
+
+message CommandHeartBeat {
+  int64 clientTimesteamp = 1;
+}
+
+message CommandHeartBeatReply {
+  int64 serverTimesteamp = 1;
+}
