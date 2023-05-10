@@ -3,3 +3,5 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+*.lock
+/Google.Protobuf.Server/Google.Protobuf.Server.csproj.user
