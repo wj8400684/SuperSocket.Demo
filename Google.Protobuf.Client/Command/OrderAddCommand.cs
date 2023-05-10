@@ -1,4 +1,5 @@
 ﻿using Core;
+using Microsoft.Extensions.Logging;
 using Server.Command;
 using Server.Command.Abstractions;
 
@@ -13,6 +14,7 @@ public sealed class OrderAddCommand : RpcAsyncCommand<CommandOrder>
         CommandOrder request)
     {
         package.SuccessFul = true;
+        client.Logger.LogInformation($"添加订单");
 
         return ValueTask.FromResult(package);
     }

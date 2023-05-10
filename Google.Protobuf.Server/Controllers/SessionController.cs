@@ -7,7 +7,7 @@ namespace Google.Protobuf.Server.Controllers;
 
 [ApiController]
 [Produces("application/json")]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 public sealed class SessionController : ControllerBase
 {
     private ILogger<SessionController> _logger;

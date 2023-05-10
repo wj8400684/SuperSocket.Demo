@@ -38,7 +38,7 @@ message CommandPackage
 {
   CommandType key = 1;
 
-  uint32 requestId = 2;
+  uint32 identifier = 2;
 
   bool successFul = 3;
 

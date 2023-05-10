@@ -22,6 +22,8 @@ public sealed class RpcClient : EasyCommandClient<CommandType, CommandPackage>
         _easyClient = this;
     }
 
+    internal new ILogger Logger => base.Logger;
+
     internal new ValueTask<bool> ConnectAsync(EndPoint remoteEndPoint, CancellationToken cancellationToken)
     {
         //if (remoteEndPoint is IPEndPoint endPoint)
