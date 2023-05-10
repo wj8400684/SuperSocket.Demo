@@ -164,7 +164,7 @@ public abstract class RpcAsyncCommand<TRequestPackage, TReplyPackage>
 
         var replyContent = await OnEncoderPackageAsync(session, replyPackage, cancellationToken);
 
-        var replyCommand = package.CreateInfo(_replyCommand, replyContent);
+        var replyCommand = package.CreateRpcInfo(_replyCommand, replyContent);
         
         await session.SendPackageAsync(replyCommand);
     }

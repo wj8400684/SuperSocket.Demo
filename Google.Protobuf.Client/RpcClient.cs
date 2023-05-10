@@ -120,9 +120,11 @@ public sealed class RpcClient : EasyCommandClient<CommandType, CommandPackage>
             return;
         }
 
+        var key = package.Key == CommandType.RpcReply ? CommandType.RpcReply : package.RpcKey;
+
         try
         {
-            await PackageCommandHandler.HandleAsync(this, package, package.RpcKey);//实际命令为rpc命令
+            await PackageCommandHandler.HandleAsync(this, package, key);
         }
         catch (Exception ex)
         {

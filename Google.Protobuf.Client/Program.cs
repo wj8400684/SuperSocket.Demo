@@ -30,12 +30,32 @@ var client = provider.GetRequiredService<RpcClient>();
 
 await client.ConnectAsync(new DnsEndPoint("127.0.0.1", 4040, System.Net.Sockets.AddressFamily.InterNetwork), CancellationToken.None);
 
-var resp = await client.GetResponseAsync<CommandLoginReply>(CommandPackageFactory.CreateRpcRequest(new CommandLogin
+var watch = new Stopwatch();
+watch.Start();
+
+Console.WriteLine("请输入发送次数，不输入默认为100w次按enter ");
+
+var count = 1000 * 1000;
+
+var input = Console.ReadLine();
+
+if (!string.IsNullOrWhiteSpace(input))
+    _ = int.TryParse(input, out count);
+
+Console.WriteLine($"开始执行");
+
+for (int i = 0; i < count; i++)
 {
-    Username = "asfeaswf",
-    Password = "password",
-    Email = "email",
-}));
+    var resp = await client.GetResponseAsync<CommandLoginReply>(CommandPackageFactory.CreateRpcRequest(new CommandLogin
+    {
+        Username = "asfeaswf",
+        Password = "password",
+        Email = "email",
+    }));
+}
+
+watch.Stop();
+Console.WriteLine($"执行完成{watch.ElapsedMilliseconds/1000}秒");
 
 Console.ReadKey();
 

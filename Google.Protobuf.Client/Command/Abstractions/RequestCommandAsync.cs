@@ -3,6 +3,86 @@ using SuperSocket.Client.Command;
 
 namespace Google.Protobuf.Client;
 
+public abstract class RequestCommandAsync : IAsyncCommand<CommandPackage>
+{
+    ValueTask IAsyncCommand<CommandPackage>.ExecuteAsync(object sender, CommandPackage package) => OnSchedulerAsync((RpcClient)sender, package);
+
+    /// <summary>
+    /// 执行包命令
+    /// </summary>
+    /// <param name="client">连接回话</param>
+    /// <param name="package">完整包</param>
+    /// <returns></returns>
+    protected abstract ValueTask OnHandlerAsync(
+        RpcClient client,
+        CommandPackage package);
+
+    /// <summary>
+    /// 执行调度
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="package"></param>
+    /// <returns></returns>
+    protected async virtual ValueTask OnSchedulerAsync(RpcClient client, CommandPackage package)
+    {
+        await TryProcessPackageAsync(client, package);
+    }
+
+    /// <summary>
+    /// 当解包发生错误时候触发
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="package"></param>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual ValueTask OnDecoderErrorAsync(
+        RpcClient client,
+        CommandPackage package,
+        Exception e)
+    {
+        return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="package"></param>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual ValueTask OnHandlerErrorAsync(
+        RpcClient client,
+        CommandPackage package,
+        Exception e)
+    {
+        return ValueTask.CompletedTask;
+    }
+
+
+    /// <summary>
+    /// 进行解包
+    /// 执行包命令
+    /// 编码响应包
+    /// 发送响应包
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="package"></param>
+    private async ValueTask TryProcessPackageAsync(
+        RpcClient client,
+        CommandPackage package)
+    {
+        try
+        {
+            await OnHandlerAsync(client, package);
+        }
+        catch (Exception e)
+        {
+            await OnHandlerErrorAsync(client, package, e);
+        }
+    }
+
+}
+
 public abstract class RequestCommandAsync<TRequestPackage> : IAsyncCommand<CommandPackage> 
     where TRequestPackage : IMessage<TRequestPackage>
 {
