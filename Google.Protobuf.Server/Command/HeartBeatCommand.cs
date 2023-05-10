@@ -5,7 +5,7 @@ using Server.Command.Abstractions;
 namespace Server.Command;
 
 [ReplyCommand(CommandType.HeartBeat, CommandType.HeartBeatReply)]
-public sealed class HeartBeatCommand : ReplyAsyncCommand<CommandHeartBeat, CommandHeartBeatReply>
+public sealed class HeartBeatCommand : RpcAsyncCommand<CommandHeartBeat, CommandHeartBeatReply>
 {
     protected override ValueTask<CommandHeartBeatReply?> OnHandlerAsync(
         CommandSession session, 

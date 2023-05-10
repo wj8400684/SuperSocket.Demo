@@ -83,7 +83,7 @@ public sealed class PacketDispatcher : IDisposable
     {
         ArgumentNullException.ThrowIfNull(packet);
 
-        var identifier = packet.RequestId;
+        var identifier = packet.Identifier;
 
         IPacketAwaitable? awaitable;
 

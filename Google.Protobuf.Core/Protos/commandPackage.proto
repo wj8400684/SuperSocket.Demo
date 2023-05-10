@@ -23,6 +23,10 @@ enum CommandType {
   AddOrderReply = 8;
 
   Hello = 9;
+
+  Rpc = 10;
+
+  RpcReply = 11;
 }
 
 enum ErrorCode{
@@ -43,6 +47,8 @@ message CommandPackage
   string errorMessage = 5;
 
   bytes content = 6;
+
+  CommandType rpcKey = 7;
 }
 
 message CommandRegister {
@@ -72,6 +78,7 @@ message CommandOrder {
 }
 
 message CommandOrderReply {
+
 }
 
 message CommandHeartBeat {

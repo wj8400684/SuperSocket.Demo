@@ -4,7 +4,7 @@ using Core;
 namespace Server.Command;
 
 [ReplyCommand(CommandType.Login, CommandType.LoginReply)]
-public sealed class LoginCommand : ReplyAsyncCommand<CommandLogin, CommandLoginReply>
+public sealed class LoginCommand : RpcAsyncCommand<CommandLogin, CommandLoginReply>
 {
     /// <summary>
     /// 执行命令

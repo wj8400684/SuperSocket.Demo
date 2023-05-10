@@ -107,11 +107,11 @@ public sealed class CommandSession : AppSession
     {
         using var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(tokens);
 
-        package.RequestId = _packetIdentifierProvider.GetNextPacketIdentifier();
+        package.Identifier = _packetIdentifierProvider.GetNextPacketIdentifier();
 
-        using var packetAwaitable = _packetDispatcher.AddAwaitable<TReplyPackage>(package.RequestId);
+        using var packetAwaitable = _packetDispatcher.AddAwaitable<TReplyPackage>(package.Identifier);
 
-        this.LogDebug($"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.RequestId} WaitAsync");
+        this.LogDebug($"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} WaitAsync");
 
         try
         {
@@ -122,7 +122,7 @@ public sealed class CommandSession : AppSession
         {
             packetAwaitable.Fail(e);
             this.LogError(e,
-                $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.RequestId} WaitAsync 发送封包抛出一个异常");
+                $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} WaitAsync 发送封包抛出一个异常");
         }
 
         try
@@ -134,7 +134,7 @@ public sealed class CommandSession : AppSession
         {
             if (e is TimeoutException)
                 this.LogError(
-                    $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.RequestId} WaitAsync Timeout");
+                    $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} WaitAsync Timeout");
 
             throw;
         }
@@ -150,7 +150,7 @@ public sealed class CommandSession : AppSession
         var result = _packetDispatcher.TryDispatch(package);
 
         this.LogDebug(
-            $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.RequestId} TryDispatch result= {result}");
+            $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} TryDispatch result= {result}");
 
         return ValueTask.CompletedTask;
     }

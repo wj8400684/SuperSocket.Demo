@@ -34,21 +34,15 @@ public sealed class SessionController : ControllerBase
     [Route("Order/Add")]
     public async ValueTask<IActionResult> OrderAddAsync(string id, CancellationToken cancellationToken)
     {
-        var session = _sessionContainer.GetSessionByID(id) as CommandSession;
-
-        if (session == null)
+        if (_sessionContainer.GetSessionByID(id) is not CommandSession session)
             return NotFound("客户端不在线");
 
-        var addOrderPackage = new CommandPackage
-        {
-            Key = CommandType.AddOrder,
-            Content = new CommandOrder
+        var resp = await session.InvokerRpcAsync<CommandOrder, CommandOrderReply>(
+            cancellationToken: cancellationToken,
+            content: new CommandOrder
             {
                 Content = Guid.NewGuid().ToString()
-            }.ToByteString()
-        };
-
-        var resp = await session.GetResponsePacketAsync<CommandOrderReply>(addOrderPackage, cancellationToken);
+            });
 
         return Ok(resp);
     }

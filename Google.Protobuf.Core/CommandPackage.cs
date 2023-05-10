@@ -30,4 +30,24 @@ public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
         Content = ByteString.Empty;
         return this;
     }
+
+    public CommandPackage CreateRpcError(CommandType rpcKey, ErrorCode code, string message)
+    {
+        Key = CommandType.RpcReply;
+        RpcKey = rpcKey;
+        ErrorCode = code;
+        ErrorMessage = message;
+        Content = ByteString.Empty;
+        return this;
+    }
+
+    public CommandPackage CreateRpcInfo(CommandType rpcKey, ByteString value)
+    {
+        Key = CommandType.RpcReply;
+        RpcKey = rpcKey;
+        ErrorCode = default;
+        ErrorMessage = string.Empty;
+        Content = value;
+        return this;
+    }
 }

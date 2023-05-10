@@ -10,7 +10,7 @@ namespace Server.Command.Abstractions;
 /// </summary>
 /// <typeparam name="TRequestPackage"></typeparam>
 /// <typeparam name="TReplyPackage"></typeparam>
-public abstract class ReplyAsyncCommand<TRequestPackage, TReplyPackage>
+public abstract class RpcAsyncCommand<TRequestPackage, TReplyPackage>
     : IAsyncCommand<CommandSession, CommandPackage>
     where TRequestPackage : IMessage<TRequestPackage>
     where TReplyPackage : IMessage<TReplyPackage>
@@ -20,7 +20,7 @@ public abstract class ReplyAsyncCommand<TRequestPackage, TReplyPackage>
     private readonly MessageParser<TRequestPackage> _requestParser =
         new(() => Activator.CreateInstance<TRequestPackage>()!);
 
-    protected ReplyAsyncCommand()
+    protected RpcAsyncCommand()
     {
         var result = this.GetType().GetCustomAttribute<ReplyCommand>();
 

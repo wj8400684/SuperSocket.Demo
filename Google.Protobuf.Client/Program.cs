@@ -3,6 +3,50 @@ using System.Net;
 using SuperSocket.Client;
 using Core;
 using Google.Protobuf;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.Sockets;
+using SuperSocket.Client.Command;
+using Microsoft.Extensions.Logging;
+using Google.Protobuf.Client;
+using Google.Protobuf.Client.Command;
+
+var services = new ServiceCollection();
+
+services.AddLogging(logging => logging.AddDebug().AddConsole());
+
+services.AddCommandClient<CommandType, CommandPackage>(option =>
+{
+    option.UseClient<RpcClient>();
+    option.UsePackageEncoder<CommandPackageEncoder>();
+    option.UsePipelineFilter<CommandPipelineFilter>();
+    option.UseCommand(options => options.AddCommandAssembly(typeof(OrderAddCommand).Assembly));
+});
+
+var provider = services.BuildServiceProvider();
+
+var client = provider.GetRequiredService<RpcClient>();
+
+await client.ConnectAsync(new DnsEndPoint("127.0.0.1", 4040, System.Net.Sockets.AddressFamily.InterNetwork), CancellationToken.None);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var client = new EasyClient<CommandPackage, CommandPackage>(new CommandPipelineFilter
 {
