@@ -5,11 +5,11 @@ namespace Server.Command;
 
 public sealed class ReplyCommand : CommandAttribute
 {
-    public CommandType Reply { get; private set; }
+    public string Reply { get; private set; }
 
-    public ReplyCommand(CommandType request, CommandType reply)
+    public ReplyCommand(Type requestType, Type replyType)
     {
-        Key = (int)request;
-        Reply = reply;
+        Key = requestType.Name;
+        Reply = replyType.Name;
     }
 }

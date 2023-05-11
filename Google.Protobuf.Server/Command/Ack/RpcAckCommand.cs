@@ -3,7 +3,7 @@ using Server.Command.Abstractions;
 
 namespace Server.Command.Ack;
 
-[RequestCommand(CommandType.RpcReply)]
+[RequestCommand(typeof(CommandRpcReply))]
 public sealed class RpcAckCommand : RequestAsyncCommand
 {
     protected override ValueTask OnHandlerAsync(

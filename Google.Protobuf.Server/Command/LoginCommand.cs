@@ -3,7 +3,7 @@ using Core;
 
 namespace Server.Command;
 
-[ReplyCommand(CommandType.Login, CommandType.LoginReply)]
+[ReplyCommand(typeof(CommandLogin), typeof(CommandLoginReply))]
 public sealed class LoginCommand : RpcAsyncCommand<CommandLogin, CommandLoginReply>
 {
     /// <summary>

@@ -4,12 +4,12 @@ using Server.Command.Abstractions;
 
 namespace Server.Command;
 
-[ReplyCommand(CommandType.HeartBeat, CommandType.HeartBeatReply)]
+[ReplyCommand(typeof(CommandHeartBeat), typeof(CommandHeartBeatReply))]
 public sealed class HeartBeatCommand : RpcAsyncCommand<CommandHeartBeat, CommandHeartBeatReply>
 {
     protected override ValueTask<CommandHeartBeatReply?> OnHandlerAsync(
-        CommandSession session, 
-        CommandPackage package, 
+        CommandSession session,
+        CommandPackage package,
         CommandHeartBeat request,
         CancellationToken cancellationToken)
     {

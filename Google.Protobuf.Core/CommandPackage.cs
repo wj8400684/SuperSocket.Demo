@@ -3,17 +3,17 @@ using SuperSocket.ProtoBase;
 
 namespace Core;
 
-public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
+public sealed partial class CommandPackage : IKeyedPackageInfo<string>
 {
     internal const int HeaderSize = sizeof(short);
 
-    public CommandPackage CreateInfo<TPackage>(CommandType key, TPackage package)
+    public CommandPackage CreateInfo<TPackage>(string key, TPackage package)
         where TPackage : IMessage
     {
         return CreateInfo(key, package.ToByteString());
     }
 
-    public CommandPackage CreateInfo(CommandType key, ByteString value)
+    public CommandPackage CreateInfo(string key, ByteString value)
     {
         Key = key;
         ErrorCode = default;
@@ -22,7 +22,7 @@ public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
         return this;
     }
 
-    public CommandPackage CreateError(CommandType key, ErrorCode code, string message)
+    public CommandPackage CreateError(string key, ErrorCode code, string message)
     {
         Key = key;
         ErrorCode = code;
@@ -31,7 +31,7 @@ public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
         return this;
     }
 
-    public CommandPackage CreateRpcError(CommandType rpcKey, ErrorCode code, string message)
+    public CommandPackage CreateRpcError(string rpcKey, ErrorCode code, string message)
     {
         Key = CommandType.RpcReply;
         RpcKey = rpcKey;
@@ -41,7 +41,7 @@ public sealed partial class CommandPackage : IKeyedPackageInfo<CommandType>
         return this;
     }
 
-    public CommandPackage CreateRpcInfo(CommandType rpcKey, ByteString value)
+    public CommandPackage CreateRpcInfo(string rpcKey, ByteString value)
     {
         Key = CommandType.RpcReply;
         RpcKey = rpcKey;

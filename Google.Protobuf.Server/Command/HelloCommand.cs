@@ -3,7 +3,7 @@ using Server.Command.Abstractions;
 
 namespace Server.Command;
 
-[RequestCommand(CommandType.Hello)]
+[RequestCommand(typeof(CommandHello))]
 public sealed class HelloCommand : RequestAsyncCommand<CommandHello>
 {
     protected override ValueTask OnHandlerAsync(

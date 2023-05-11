@@ -5,8 +5,8 @@ namespace Server.Command;
 
 public sealed class RequestCommand : CommandAttribute
 {
-    public RequestCommand(CommandType request)
+    public RequestCommand(Type packageType)
     {
-        Key = (int)request;
+        Key = packageType.Name;
     }
 }

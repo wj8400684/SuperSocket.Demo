@@ -2,33 +2,6 @@ syntax = "proto3";
 
 package Core;
 
-enum CommandType {
-
-  None = 0;
-
-  HeartBeat = 1;
-
-  HeartBeatReply = 2;
-
-  Register = 3;
-
-  RegisterReply = 4;
-
-  Login = 5;
-
-  LoginReply = 6;
-
-  AddOrder = 7;
-
-  AddOrderReply = 8;
-
-  Hello = 9;
-
-  Rpc = 10;
-
-  RpcReply = 11;
-}
-
 enum ErrorCode{
   Unknown = 0;
   Package = 1;
@@ -36,7 +9,7 @@ enum ErrorCode{
 
 message CommandPackage
 {
-  CommandType key = 1;
+  string key = 1;
 
   uint32 identifier = 2;
 
@@ -48,7 +21,7 @@ message CommandPackage
 
   bytes content = 6;
 
-  CommandType rpcKey = 7;
+  string rpcKey = 7;
 }
 
 message CommandRegister {

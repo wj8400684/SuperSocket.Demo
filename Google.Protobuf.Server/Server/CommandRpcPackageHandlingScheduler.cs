@@ -8,7 +8,7 @@ internal sealed class CommandRpcPackageHandlingScheduler : SerialPackageHandling
 {
     public override ValueTask HandlePackage(IAppSession session, CommandPackage package)
     {
-        if (package.RpcKey != CommandType.None)
+        if (!string.IsNullOrEmpty(package.RpcKey))
             package.Key = package.RpcKey;//替换rpc为command key这样command执行才可以正常运行
 
         return base.HandlePackage(session, package);

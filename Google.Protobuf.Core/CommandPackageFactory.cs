@@ -4,23 +4,10 @@ namespace Core;
 
 public static class CommandPackageFactory
 {
-    private static readonly Dictionary<Type, CommandType> _commands = new();
+    private static readonly Dictionary<Type, string> _commands = new();
 
     static CommandPackageFactory()
     {
-        RegisterCommandType<CommandOrder>(CommandType.AddOrder);
-        RegisterCommandType<CommandOrderReply>(CommandType.AddOrderReply);
-
-        RegisterCommandType<CommandHeartBeat>(CommandType.HeartBeat);
-        RegisterCommandType<CommandHeartBeatReply>(CommandType.HeartBeatReply);
-
-        RegisterCommandType<CommandRegister>(CommandType.Register);
-        RegisterCommandType<CommandRegisterReply>(CommandType.RegisterReply);
-
-        RegisterCommandType<CommandLogin>(CommandType.Login);
-        RegisterCommandType<CommandLoginReply>(CommandType.LoginReply);
-
-        RegisterCommandType<CommandHello>(CommandType.Hello);
     }
 
     private static void RegisterCommandType<TPackageContent>(CommandType key)
@@ -46,13 +33,12 @@ public static class CommandPackageFactory
     public static CommandPackage CreateRpcRequest<TPackageContent>(TPackageContent package)
         where TPackageContent : IMessage
     {
-        if (!_commands.TryGetValue(typeof(TPackageContent), out var key))
-            throw new KeyNotFoundException("请注册key");
+        const string rpckey = nameof(CommandRpc);
 
         return new CommandPackage
         {
-            Key = CommandType.Rpc,
-            RpcKey = key,
+            Key = rpckey,
+            RpcKey = typeof(TPackageContent).Name,
             Content = package.ToByteString(),
         };
     }
