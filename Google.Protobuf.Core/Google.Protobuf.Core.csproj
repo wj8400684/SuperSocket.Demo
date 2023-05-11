@@ -14,7 +14,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SuperSocket.ProtoBase" Version="2.0.0-beta.16.411" />
+      <PackageReference Include="SuperSocket.ProtoBase" Version="2.0.0-beta.16.412" />
     </ItemGroup>
 
     <ItemGroup>

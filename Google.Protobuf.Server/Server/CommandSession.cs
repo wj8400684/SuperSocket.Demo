@@ -97,7 +97,7 @@ public sealed class CommandSession : AppSession
     /// <summary>
     /// 获取响应包
     /// </summary>
-    /// <typeparam name="TResponsePacket"></typeparam>
+    /// <typeparam name="TReplyPackage"></typeparam>
     /// <param name="package"></param>
     /// <param name="tokens"></param>
     /// <returns></returns>
@@ -110,8 +110,6 @@ public sealed class CommandSession : AppSession
         package.Identifier = _packetIdentifierProvider.GetNextPacketIdentifier();
 
         using var packetAwaitable = _packetDispatcher.AddAwaitable<TReplyPackage>(package.Identifier);
-
-        this.LogDebug($"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} WaitAsync");
 
         try
         {
@@ -145,16 +143,12 @@ public sealed class CommandSession : AppSession
     /// </summary>
     /// <param name="package"></param>
     /// <returns></returns>
-    internal ValueTask TryDispatchAsync(CommandPackage package)
+    internal ValueTask<bool> TryDispatchAsync(CommandPackage package)
     {
         var result = _packetDispatcher.TryDispatch(package);
 
-        this.LogDebug(
-            $"[{RemoteAddress}]: commandKey= {package.Key};Identifier= {package.Identifier} TryDispatch result= {result}");
-
-        return ValueTask.CompletedTask;
+        return ValueTask.FromResult(result);
     }
-
 
     internal ValueTask SendPackageAsync(CommandPackage package)
     {

@@ -10,7 +10,7 @@
     <ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-      <PackageReference Include="SuperSocket.Client" Version="2.0.0-beta.16.411" />
+      <PackageReference Include="SuperSocket.Client" Version="2.0.0-beta.16.412" />
       <PackageReference Include="Supersocket.Client.Command" Version="2.0.0-beta.15" />
     </ItemGroup>
 
