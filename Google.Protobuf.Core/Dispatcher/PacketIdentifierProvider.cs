@@ -13,7 +13,7 @@ public sealed class PacketIdentifierProvider
             _value = 0;
         }
     }
-
+    
     public uint GetNextPacketIdentifier()
     {
         lock (_syncRoot)

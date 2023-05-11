@@ -96,7 +96,8 @@ public sealed class RpcClient : EasyCommandClient<CommandType, CommandPackage>
         catch (Exception e)
         {
             packetAwaitable.Fail(e);
-            throw new Exception("发送封包抛出一个异常", e);
+            Logger.LogError(e, $"发送封包抛出一个异常：package={package}");
+            return ValueCommandResponse.Error<TReplyPackage>(ErrorCode.Package, "发送错误");
         }
 
         try
@@ -106,9 +107,13 @@ public sealed class RpcClient : EasyCommandClient<CommandType, CommandPackage>
         catch (Exception e)
         {
             if (e is TimeoutException)
-                throw new TimeoutException($"等待封包调度超时命令：{package.Key}", e);
+            {
+                Logger.LogError(e, $"等待封包超时：package={package}");
+                return ValueCommandResponse.Error<TReplyPackage>(ErrorCode.Package, "操作超时");
+            }
 
-            throw new Exception("等待封包调度抛出一个异常", e);
+            Logger.LogError(e, $"等待封包抛出一个异常：package={package}");
+            return ValueCommandResponse.Error<TReplyPackage>(ErrorCode.Unknown, "未知错误");
         }
     }
 
